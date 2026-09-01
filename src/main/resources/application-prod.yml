@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://postgres-db:5432/healthcare_prod_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:prod_secret_password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: ProdHikariCP
+      maximum-pool-size: 30
+      minimum-idle: 10
+      idle-timeout: 600000
+      connection-timeout: 30000
+      leak-detection-threshold: 60000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: false
+        jdbc:
+          batch_size: 50
+          lob:
+            non_contextual_creation: true
+        order_inserts: true
+        order_updates: true
+        enable_lazy_load_no_trans: false
+
+logging:
+  level:
+    root: WARN
+    com.abi: INFO
+    org.springframework.web: WARN
+    org.hibernate: ERROR
